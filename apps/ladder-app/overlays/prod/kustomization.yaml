@@ -3,9 +3,9 @@ kind: Kustomization
 namespace: ladder-prod
 resources:
   - ../../base
-replicas:
-  - name: ladder-app
-    count: 2
+  - rollout.yaml
+  - canary-service.yaml
+  - analysis-template.yaml
 patches:
   - target: { kind: Job, name: db-migrate }
     patch: |
