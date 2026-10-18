@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: podinfo
-  labels: {app: podinfo}
+  labels: { app: podinfo }
 spec:
   replicas: 1
   selector:
-    matchLabels: {app: podinfo}
+    matchLabels: { app: podinfo }
   template:
     metadata:
-      labels: {app: podinfo}
+      labels: { app: podinfo }
     spec:
       containers:
         - name: podinfo
-          image: ghcr.io/stefanprodan/podinfo:6.7.1 # {"$imagepolicy": "flux-system:podinfo"}
-          ports: [{name: http, containerPort: 9898}]
-          readinessProbe: {httpGet: {path: /readyz, port: http}}
-          livenessProbe: {httpGet: {path: /healthz, port: http}}
+          image: ghcr.io/stefanprodan/podinfo:6.7.0 # {"$imagepolicy": "flux-system:podinfo"}
+          ports: [{ name: http, containerPort: 9898 }]
+          readinessProbe: { httpGet: { path: /readyz, port: http } }
+          livenessProbe: { httpGet: { path: /healthz, port: http } }
           resources:
-            requests: {cpu: 10m, memory: 32Mi}
-            limits: {memory: 96Mi}
+            requests: { cpu: 10m, memory: 32Mi }
+            limits: { memory: 96Mi }

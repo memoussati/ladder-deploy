@@ -6,5 +6,6 @@ resources:
   - deployment.yaml
   - service.yaml
   - ingress.yaml
+  - metric-template.yaml
   - canary.yaml
   - loadtester.yaml

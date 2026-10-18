@@ -1,0 +1,17 @@
+# Flagger's built-in nginx success-rate query filters on ingress="<target>-canary". ingress-nginx (1.15)
+# merges canary Ingresses into the primary server and reports them as ingress="<primary>" with
+# canary="<namespace>-<canary service>-<backend port as written in the Ingress>". The scrape also
+# renames the original namespace label to exported_namespace. So: our own template.
+apiVersion: flagger.app/v1beta1
+kind: MetricTemplate
+metadata:
+  name: canary-success-rate
+spec:
+  provider:
+    type: prometheus
+    address: http://kps-prometheus.monitoring.svc:9090
+  query: |
+    sum(rate(nginx_ingress_controller_requests{exported_namespace="{{ namespace }}",canary="{{ namespace }}-{{ target }}-canary-9898",status!~"5.."}[{{ interval }}]))
+    /
+    sum(rate(nginx_ingress_controller_requests{exported_namespace="{{ namespace }}",canary="{{ namespace }}-{{ target }}-canary-9898"}[{{ interval }}]))
+    * 100

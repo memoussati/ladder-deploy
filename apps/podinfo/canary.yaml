@@ -18,7 +18,8 @@ spec:
     maxWeight: 50
     stepWeight: 25
     metrics:
-      - name: request-success-rate
+      - name: success-rate
+        templateRef: { name: canary-success-rate }
         thresholdRange: { min: 99 }
         interval: 1m
     webhooks:
