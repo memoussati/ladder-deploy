@@ -14,7 +14,6 @@ patches:
   target:
     kind: Job
     name: db-migrate
-- path: bad-release.yaml
 images:
 - name: ghcr.io/memoussati/ladder-app
   newName: ghcr.io/memoussati/ladder-app
