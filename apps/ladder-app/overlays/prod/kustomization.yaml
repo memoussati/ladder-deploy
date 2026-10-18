@@ -2,19 +2,16 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: ladder-prod
 resources:
-- ../../base
-- rollout.yaml
-- canary-service.yaml
-- analysis-template.yaml
+  - ../../base
+  - rollout.yaml
+  - canary-service.yaml
+  - analysis-template.yaml
 patches:
-- patch: |
-    - op: replace
-      path: /spec/template/spec/containers/0/env/0/value
-      value: prod
-  target:
-    kind: Job
-    name: db-migrate
-- path: bad-release.yaml
+  - target: { kind: Job, name: db-migrate }
+    patch: |
+      - op: replace
+        path: /spec/template/spec/containers/0/env/0/value
+        value: prod
 images:
-- name: ghcr.io/memoussati/ladder-app
-  newTag: 0.1.0
+  - name: ghcr.io/memoussati/ladder-app
+    newTag: 0.1.0
