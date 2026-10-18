@@ -21,4 +21,4 @@ patches:
 images:
 - name: ghcr.io/memoussati/ladder-app
   newName: ghcr.io/memoussati/ladder-app
-  newTag: sha-ab2fa99
+  newTag: sha-9f89bda
