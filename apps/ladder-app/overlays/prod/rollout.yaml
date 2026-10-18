@@ -25,8 +25,8 @@ spec:
         templates: [{ templateName: success-rate }]
         startingStep: 1
         args:
-          - name: ingress
-            value: ladder-app-ladder-app-canary
+          - name: canary
+            value: ladder-prod-ladder-app-canary-http
       steps:
         - setWeight: 20
         - pause: { duration: 90s }
