@@ -1,0 +1,21 @@
+# Runs before every sync (PreSync hook); stands in for a schema migration.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migrate
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      securityContext: { runAsNonRoot: true, runAsUser: 65532, seccompProfile: { type: RuntimeDefault } }
+      containers:
+        - name: migrate
+          image: docker.io/library/busybox:1.37
+          command: ["sh", "-c", "echo migrating schema for $(ENV); sleep 2; echo done"]
+          env: [{ name: ENV, value: base }]
+          securityContext: { allowPrivilegeEscalation: false, capabilities: { drop: [ALL] } }
