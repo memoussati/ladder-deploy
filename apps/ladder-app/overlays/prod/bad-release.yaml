@@ -1,0 +1,9 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: ladder-app }
+spec:
+  template:
+    spec:
+      containers:
+        - name: app
+          env: [{ name: LADDER_FAIL_RATE, value: "0.6" }]
